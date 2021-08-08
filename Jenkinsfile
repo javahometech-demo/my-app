@@ -19,7 +19,7 @@ pipeline{
             steps{
                 emailext body: '''Your jenkins was successfully executed
 
-                Tafara''', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com; chiduzae@gmail.com'
+                Tafara''', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
             }
         }
         //stage("Deploy to Tomcat Dev"){
