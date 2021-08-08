@@ -26,6 +26,15 @@ pipeline{
             Tafara''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
             }
         }
+        stage("Slack Notifications"){
+            steps{
+                slackSend baseUrl: 'https://hooks.slack.com/services/',
+                    channel: '# jenkins-pipeline-demo',
+                    color: 'good', 
+                    message: 'Your jenkins was successfully executed.',
+                    tokenCredentialId: 'slack-demo'
+            }
+        }
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
