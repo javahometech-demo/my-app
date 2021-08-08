@@ -28,11 +28,12 @@ pipeline{
         }
         stage("Slack Notifications"){
             steps{
-                slackSend baseUrl: 'https://hooks.slack.com/services/',
-                    channel: '# jenkins-pipeline-demo',
-                    color: 'good', 
-                    message: 'Your jenkins was successfully executed.',
-                    tokenCredentialId: 'slack-demo'
+                 slackSend baseUrl: 'https://hooks.slack.com/services/',
+                     channel: '# jenkins-pipeline-demo',
+                     color: 'good',
+                     message: 'Your jenkins was successfully executed.',
+                     teamDomain: 'Chets-Projects', 
+                     tokenCredentialId: 'slack-demo'
             }
         }
         //stage("Deploy to Tomcat Dev"){
