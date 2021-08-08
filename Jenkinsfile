@@ -17,9 +17,12 @@ pipeline{
         }
         stage("Email Notification"){
             steps{
-                emailext body: '''Your jenkins was successfully executed
+                mail bcc: '', body: '''Hi Team
 
-                Tafara''', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
+                Your jenkins was successfully executed.
+
+                Regards
+                Tafara''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
             }
         }
         //stage("Deploy to Tomcat Dev"){
