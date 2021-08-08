@@ -10,9 +10,15 @@ pipeline{
                 sh "mkdir -p ${env.JOB_NAME}"
             }
         }
+        //stage("Maven Build"){
+        //    steps{
+        //        sh 'mvn clean package'
+        //    }
+        //}
         stage("Maven Build"){
             steps{
-                sh 'mvn clean package'
+                withSonarQubeEnv('sonar-6') {
+                sh 'mvn clean package sonar:sonar'
             }
         }
         stage("Email Notification"){
@@ -36,6 +42,7 @@ pipeline{
                      tokenCredentialId: 'slack-demo'
             }
         }
+        
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
