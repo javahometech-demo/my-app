@@ -19,10 +19,10 @@ pipeline{
             steps{
                 mail bcc: '', body: '''Hi Team
 
-                Your jenkins was successfully executed.
+            Your jenkins was successfully executed.
 
-                Regards
-                Tafara''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
+            Regards
+            Tafara''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
             }
         }
         //stage("Deploy to Tomcat Dev"){
