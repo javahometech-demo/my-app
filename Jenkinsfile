@@ -15,10 +15,10 @@ pipeline{
                 sh 'mvn clean package'
             }
         }
-        stage("Deploy to Tomcat Dev"){
-            steps{
-                tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
-            }
-        }
+        //stage("Deploy to Tomcat Dev"){
+        //    steps{
+        //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
+        //     }
+        //}
     }
 }
