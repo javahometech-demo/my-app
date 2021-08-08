@@ -17,7 +17,8 @@ pipeline{
         }
         stage("Email Notification"){
             steps{
-                mail bcc: '', body: '''Hi Team
+                mail bcc: '', body: '''
+            Hi Team
 
             Your jenkins was successfully executed.
 
