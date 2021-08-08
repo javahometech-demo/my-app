@@ -18,7 +18,8 @@ pipeline{
         stage("SonarQube Analysis"){
             steps{
                 withSonarQubeEnv('sonar-6') {
-                sh 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
         stage("Email Notification"){
@@ -50,3 +51,4 @@ pipeline{
         //}
     }
 }
+
