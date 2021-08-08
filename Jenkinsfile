@@ -10,15 +10,15 @@ pipeline{
                 sh "mkdir -p ${env.JOB_NAME}"
             }
         }
-        //stage("Maven Build"){
-        //    steps{
-        //        sh 'mvn clean package'
-        //    }
-        //}
         stage("Maven Build"){
             steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage("SonarQube Analysis"){
+            steps{
                 withSonarQubeEnv('sonar-6') {
-                sh 'mvn clean package sonar:sonar'
+                sh 'mvn sonar:sonar'
             }
         }
         stage("Email Notification"){
