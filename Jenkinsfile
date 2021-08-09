@@ -4,6 +4,10 @@ pipeline{
     tools{
         maven 'maven3'
     }
+    environment {
+      DOCKER_TAG = "getVersion()"
+    }
+
     stages{
         stage("Create Folder"){
             steps{
@@ -44,6 +48,11 @@ pipeline{
             }
         }
         
+        stage("Docker Build"){
+            steps{
+                sh 'docker build . -t tafaracheteni/my-app:'
+            }
+        }
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
@@ -52,3 +61,7 @@ pipeline{
     }
 }
 
+def getVersion(){
+    def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    return commitHash
+}
