@@ -50,7 +50,7 @@ pipeline{
         
         stage("Docker Build"){
             steps{
-                sh 'docker build . -t tafaracheteni/my-app:1'
+                sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
             }
         }
         //stage("Deploy to Tomcat Dev"){
