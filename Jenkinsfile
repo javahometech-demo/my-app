@@ -47,10 +47,18 @@ pipeline{
                      tokenCredentialId: 'slack-demo'
             }
         }
-        
         stage("Docker Build"){
             steps{
                 sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
+            }
+        }
+        stage("Docker Push"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+                }
+                
+                sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
             }
         }
         //stage("Deploy to Tomcat Dev"){
