@@ -58,20 +58,20 @@ pipeline{
                 sh 'docker build . -t rancher:5000/my-app:${DOCKER_TAG}'
             }
         }
-        stage("Docker Push"){
-            steps{
-                  sh 'docker push rancher:5000/my-app:${DOCKER_TAG}'     
-            }
-        }
         //stage("Docker Push"){
         //    steps{
-        //        withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-        //            sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
-        //        }
-        //        
-        //        sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
+        //          sh 'docker push rancher:5000/my-app:${DOCKER_TAG}'     
         //    }
         //}
+        stage("Docker Push"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+                }
+                
+                sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
+            }
+        }
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
