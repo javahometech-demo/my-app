@@ -82,7 +82,7 @@ pipeline{
             sh 'chmod +x changeTag.sh'
             sh './changeTag.sh ${DOCKER_TAG}'
                 sshagent(['tafara-rancher']) {
-                    sh 'scp -o StrictHostKeyChecking=no deployment.yml services.yml tafara@192.168.122.90:/home/tafara/'
+                    sh 'scp -o StrictHostKeyChecking=no deployment1.yml services.yml tafara@192.168.122.90:/home/tafara/'
                     script{
                         try{
                             sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
