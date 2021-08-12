@@ -77,6 +77,22 @@ pipeline{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
         //     }
         //}
+        stage("Deploy to k8s"){
+            steps{
+            sh 'chmod +x changeTag.sh'
+            sh './changeTag.sh ${DOCKER_TAG}'
+                sshagent(['tafara-rancher']) {
+                    sh 'scp -o StrictHostKeyChecking=no deployment.yml services.yml tafara@192.168.122.90:/home/tafara/'
+                    script{
+                        try{
+                            sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
+                        }catch(error){
+                            sh 'ssh tafara@192.168.122.90 kubectl create -f .'
+                        }
+                    }
+                }   
+            }
+        }
     }
 }
 
