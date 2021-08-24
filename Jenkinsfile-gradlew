@@ -14,9 +14,9 @@ pipeline{
                 sh "mkdir -p ${env.JOB_NAME}"
             }
         }
-        stage("Maven Build"){
+        stage("Gradle Build"){
             steps{
-                sh 'mvn clean package'
+                sh './gradlew clean build'
             }
         }
         stage("SonarQube Analysis"){
@@ -45,12 +45,12 @@ pipeline{
                      tokenCredentialId: 'slack-demo'
             }
         }
-        stage("Docker Build"){
-            steps{
-                sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
-            }
+        //stage("Docker Build"){
+        //    steps{
+        //        sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
+        //    }
         
-        }
+        //}
         //stage("Docker Build"){
         //    steps{
         //        sh 'docker build . -t rancher:5000/my-app:${DOCKER_TAG}'
@@ -61,36 +61,36 @@ pipeline{
         //          sh 'docker push rancher:5000/my-app:${DOCKER_TAG}'     
         //    }
         //}
-        stage("Docker Push"){
-            steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
-                }
+        //stage("Docker Push"){
+        //    steps{
+        //        withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+        //            sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+        //        }
                 
-                sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
-            }
-        }
+        //        sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
+        //    }
+        //}
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
         //     }
         //}
-        stage("Deploy to k8s"){
-            steps{
-            sh 'chmod +x changeTag.sh'
-            sh './changeTag.sh ${DOCKER_TAG}'
-                sshagent(['tafara-rancher']) {
-                    sh 'scp -o StrictHostKeyChecking=no deployment1.yml services.yml tafara@192.168.122.90:/home/tafara/'
-                    script{
-                        try{
-                            sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
-                        }catch(error){
-                            sh 'ssh tafara@192.168.122.90 kubectl create -f .'
-                        }
-                    }
-                }   
-            }
-        }
+        //stage("Deploy to k8s"){
+        //    steps{
+        //    sh 'chmod +x changeTag.sh'
+        //    sh './changeTag.sh ${DOCKER_TAG}'
+        //        sshagent(['tafara-rancher']) {
+        //            sh 'scp -o StrictHostKeyChecking=no deployment1.yml services.yml tafara@192.168.122.90:/home/tafara/'
+        //            script{
+        //                try{
+        //                    sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
+        //                }catch(error){
+        //                    sh 'ssh tafara@192.168.122.90 kubectl create -f .'
+        //                }
+        //            }
+        //        }   
+        //    }
+        //}
     }
 }
 
