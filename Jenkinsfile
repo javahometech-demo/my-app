@@ -63,15 +63,15 @@ pipeline{
         //          sh 'docker push rancher:5000/my-app:${DOCKER_TAG}'     
         //    }
         //}
-        stage("Docker Push"){
-            steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
-                }
+        //stage("Docker Push"){
+        //    steps{
+        //        withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+        //            sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+        //        }
                 
-                sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
-            }
-        }
+        //        sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
+        //    }
+        //}
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
@@ -81,17 +81,19 @@ pipeline{
             steps{
             sh 'chmod +x changeTag.sh'
             sh './changeTag.sh ${DOCKER_TAG}'
-                sshagent(['tafara-rancher']) {
-                    sh 'scp -o StrictHostKeyChecking=no deployment1.yml services.yml tafara@192.168.122.90:/home/tafara/'
-                    script{
-                        try{
-                            sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
-                        }catch(error){
-                            sh 'ssh tafara@192.168.122.90 kubectl create -f .'
-                        }
-                    }
-                }   
-            }
+            sh 'scp src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
+                
+        //        sshagent(['rancher-tafara']) {
+        //            sh 'scp -o StrictHostKeyChecking=no src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
+        //            script{
+        //                try{
+        //                    sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
+        //                }catch(error){
+        //                    sh 'ssh tafara@192.168.122.90 kubectl create -f .'
+        //                }
+        //            }
+        //        }   
+        //  }
         }
     }
 }
