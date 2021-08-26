@@ -3,7 +3,7 @@ tasks:
 - name: deploying k8s deployment
   k8s:
     state: present
-    src: k8s/deployment.yaml
+    src: k8s/deployment1.yaml
     
 - name: deploying K8s service
   k8s:
