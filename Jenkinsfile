@@ -77,11 +77,16 @@ pipeline{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
         //     }
         //}
-        stage("Deploy to k8s"){
+        stage("Deploy to K8s"){
             steps{
-            sh 'chmod +x changeTag.sh'
-            sh './changeTag.sh ${DOCKER_TAG}'
-            sh 'scp src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
+                ansiblePlaybook credentialsId: 'rancher-tafara', installation: 'ansible', inventory: 'dev.int', playbook: 'ansi-file.yml'
+            }
+        }
+        //stage("Deploy to k8s"){
+        //    steps{
+        //    sh 'chmod +x changeTag.sh'
+        //    sh './changeTag.sh ${DOCKER_TAG}'
+        //    sh 'scp src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
                 
         //        sshagent(['rancher-tafara']) {
         //            sh 'scp -o StrictHostKeyChecking=no src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
@@ -93,8 +98,8 @@ pipeline{
         //                }
         //            }
         //        }   
-            }
-        }
+        //    }
+        //}
     }
 }
 
