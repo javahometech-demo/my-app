@@ -1,0 +1,11 @@
+hosts: dev
+tasks:
+- name: deploying to k8s
+  k8s:
+    state: present
+    src: k8s/deployment.yaml
+    
+- name: Create a Deployment by reading the definition from a local file
+  k8s:
+    state: present
+    src: k8s/services.yaml
