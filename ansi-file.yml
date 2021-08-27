@@ -1,11 +1,12 @@
-hosts: dev
-tasks:
-- name: deploying k8s deployment
-  k8s:
-    state: present
-    src: /k8s/deployment1.yaml
+---
+- hosts: dev
+  tasks:
+  - name: deploying k8s deployment
+    k8s:
+      state: present
+      src: /k8s/deployment1.yaml
     
-- name: deploying K8s service
-  k8s:
-    state: present
-    src: /k8s/services.yaml
+  - name: deploying K8s service
+    k8s:
+      state: present
+      src: /k8s/services.yaml
