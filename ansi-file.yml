@@ -1,6 +1,8 @@
 ---
 - hosts: dev
   tasks:
+  - name: pinging
+    ping:
   - name: coping file
     copy:
       src: k8s/
