@@ -79,7 +79,7 @@ pipeline{
         //}
         stage("Deploy to K8s"){
             steps{
-                ansiblePlaybook installation: 'ansible', playbook: 'ansi-file.yml'
+                ansiblePlaybook credentialsId: 'ran', installation: 'ansible', inventory: 'dev.int', playbook: 'ansi-file.yml'
             }
         }
         //stage("Deploy to k8s"){
