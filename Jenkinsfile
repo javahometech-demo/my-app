@@ -79,6 +79,8 @@ pipeline{
         //}
         stage("Deploy to K8s"){
             steps{
+                sh 'chmod +x changeTag.sh'
+                sh './changeTag.sh ${DOCKER_TAG}'
                 ansiblePlaybook credentialsId: 'ran1', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.int', playbook: 'ansi-file.yml'
             }
         }
@@ -89,7 +91,7 @@ pipeline{
         //    sh 'scp src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
                 
         //        sshagent(['rancher-tafara']) {
-        //            sh 'scp -o StrictHostKeyChecking=no src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/'
+        //            sh 'scp -o StrictHostKeyChecking=no src/deployment1.yml src/services.yml tafara@192.168.122.90:/home/tafara/k8s'
         //            script{
         //                try{
         //                    sh 'ssh tafara@192.168.122.90 kubectl apply -f .'
