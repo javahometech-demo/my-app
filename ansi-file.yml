@@ -9,7 +9,7 @@
       dest: /home/tafara/k8s/
       
   - name: deployment1
-    command: kubectl apply -f .
+    command: kubectl apply -f k8s/
 
   #- name: deploying k8s deployment
   #  k8s:
