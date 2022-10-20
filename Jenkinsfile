@@ -105,6 +105,13 @@ pipeline{
         //    }
         //}
     }
+    post{
+        always{
+            mail to: "tafaracheteni@gmail.com",
+            subject: "Test Email",
+            body: "Test"
+        }
+    }
 }
 
 def getVersion(){
