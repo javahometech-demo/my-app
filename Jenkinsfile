@@ -27,33 +27,22 @@ pipeline{
                 }
             }
         }
-        stage("Email Notification"){
-            steps{
-                mail bcc: '', body: '''
-            Hi Team1
-
-            Your jenkins was successfully executed.
-
-            Regards
-            Tafara''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job was successful', to: 'tafaracheteni@gmail.com'
-            }
-        }
-        stage("Slack Notifications"){
-            steps{
-                 slackSend baseUrl: 'https://hooks.slack.com/services/',
-                     channel: '# jenkins-pipeline-demo',
-                     color: 'good',
-                     message: 'Your jenkins was successfully executed.',
-                     teamDomain: 'Chets-Projects', 
-                     tokenCredentialId: 'slack-demo'
-            }
-        }
-        stage("Docker Build"){
-            steps{
-                sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
-            }
         
-        }
+        //stage("Slack Notifications"){
+            //steps{
+                 //slackSend baseUrl: 'https://hooks.slack.com/services/',
+                     //channel: '# jenkins-pipeline-demo',
+                     //color: 'good',
+                     //message: 'Your jenkins was successfully executed.',
+                     //teamDomain: 'Chets-Projects', 
+                     //tokenCredentialId: 'slack-demo'
+            //}
+        //}
+        //stage("Docker Build"){
+            //steps{
+                //sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
+            //}
+        //}
         //stage("Docker Build"){
         //    steps{
         //        sh 'docker build . -t rancher:5000/my-app:${DOCKER_TAG}'
@@ -64,28 +53,28 @@ pipeline{
         //          sh 'docker push rancher:5000/my-app:${DOCKER_TAG}'     
         //    }
         //}
-        stage("Docker Push"){
-            steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
-                }
+        //stage("Docker Push"){
+            //steps{
+                //withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    //sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+                //}
                 
-                sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
-            }
-        }
+                //sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
+            //}
+        //}
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
         //     }
         //}
-        stage("Deploy to K8s"){
-            steps{
-                sh 'chmod +x changeTag.sh'
-                sh './changeTag.sh ${DOCKER_TAG}'
-                sh 'rm -rf k8s/deployment.yml'
-                ansiblePlaybook credentialsId: 'ran1', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.int', playbook: 'ansi-file.yml'
-            }
-        }
+        //stage("Deploy to K8s"){
+            //steps{
+                //sh 'chmod +x changeTag.sh'
+                //sh './changeTag.sh ${DOCKER_TAG}'
+                //sh 'rm -rf k8s/deployment.yml'
+                //ansiblePlaybook credentialsId: 'ran1', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.int', playbook: 'ansi-file.yml'
+            //}
+        //}
         //stage("Deploy to k8s"){
         //    steps{
         //    sh 'chmod +x changeTag.sh'
@@ -111,14 +100,7 @@ pipeline{
             //subject: "Test Email",
             //body: "Test"
         //}
-        
-        //always{
-            //emailext to: "tafaracheteni@gmail.com",
-            //subject: "Test Email",
-            //body: "Test",
-            //attachLog: true
-        //}
-        
+               
         failure{
             emailext to: "tafaracheteni@gmail.com",
             subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
