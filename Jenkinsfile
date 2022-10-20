@@ -106,11 +106,11 @@ pipeline{
         //}
     }
     post{
-        //always{
-            //mail to: "tafaracheteni@gmail.com",
-            //subject: "Test Email",
-            //body: "Test"
-        //}
+        always{
+            mail to: "tafaracheteni@gmail.com",
+            subject: "Test Email",
+            body: "Test"
+        }
         
         //always{
             //emailext to: "tafaracheteni@gmail.com",
@@ -125,12 +125,11 @@ pipeline{
             //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
         //}
         
-        changed{
-            emailext to: "tafaracheteni@gmail.com",
-            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
-        }
-
+        //changed{
+            //emailext to: "tafaracheteni@gmail.com",
+            //subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+        //}
     }
 }
 
