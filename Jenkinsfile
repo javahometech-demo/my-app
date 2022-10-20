@@ -110,6 +110,7 @@ pipeline{
             mail to: "tafaracheteni@gmail.com",
             subject: "Test Email",
             body: "Test"
+            attachLog: true
         }
     }
 }
