@@ -106,12 +106,11 @@ pipeline{
         //}
     }
     post{
-        always{
-            mail to: "tafaracheteni@gmail.com",
-            subject: "Test Email",
-            body: "Test"
-            //attachLog: true
-        }
+        //always{
+            //mail to: "tafaracheteni@gmail.com",
+            //subject: "Test Email",
+            //body: "Test"
+        //}
         
         always{
             emailext to: "tafaracheteni@gmail.com",
