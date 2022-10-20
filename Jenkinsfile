@@ -112,12 +112,12 @@ pipeline{
             //body: "Test"
         //}
         
-        always{
-            emailext to: "tafaracheteni@gmail.com",
-            subject: "Test Email",
-            body: "Test",
-            attachLog: true
-        }
+        //always{
+            //emailext to: "tafaracheteni@gmail.com",
+            //subject: "Test Email",
+            //body: "Test",
+            //attachLog: true
+        //}
         
         failure{
             emailext to: "tafaracheteni@gmail.com",
