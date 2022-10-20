@@ -1,4 +1,5 @@
 //@Library('javahome-libs') _
+currentBuild.displayName = "my-app-java-#"+currentBuild.number
 pipeline{
     agent any
     tools{
