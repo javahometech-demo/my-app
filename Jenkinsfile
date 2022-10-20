@@ -118,6 +118,12 @@ pipeline{
             body: "Test",
             attachLog: true
         }
+        
+        failure{
+            emailext to: "tafaracheteni@gmail.com",
+            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+        }
     }
 }
 
