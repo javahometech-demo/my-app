@@ -109,8 +109,8 @@ pipeline{
         always{
             mail to: "tafaracheteni@gmail.com",
             subject: "Test Email",
-            body: "Test",
-            attachLog: true
+            body: "Test"
+            //attachLog: true
         }
     }
 }
