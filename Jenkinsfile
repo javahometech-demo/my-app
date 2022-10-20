@@ -3,7 +3,7 @@ currentBuild.displayName = "my-app-java-#"+currentBuild.number
 pipeline{
     agent any
     tools{
-        maven 'maven3'
+        maven 'maven-3'
     }
     environment {
       DOCKER_TAG = getVersion()
