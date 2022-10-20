@@ -117,6 +117,7 @@ pipeline{
             subject: "Test Email",
             body: "Test",
             attachLog: true
+        }
     }
 }
 
