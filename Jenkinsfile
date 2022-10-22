@@ -38,11 +38,11 @@ pipeline{
                      //tokenCredentialId: 'slack-demo'
             //}
         //}
-        //stage("Docker Build"){
-            //steps{
-                //sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
-            //}
-        //}
+        stage("Docker Build"){
+            steps{
+                sh 'docker build . -t tafaracheteni/my-app:${DOCKER_TAG}'
+            }
+        }
         //stage("Docker Build"){
         //    steps{
         //        sh 'docker build . -t rancher:5000/my-app:${DOCKER_TAG}'
