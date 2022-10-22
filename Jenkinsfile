@@ -20,13 +20,13 @@ pipeline{
                 sh 'mvn clean package'
             }
         }
-        stage("SonarQube Analysis"){
-            steps{
-                withSonarQubeEnv('sonar-6') {
-                    sh 'mvn sonar:sonar'
-                }
-            }
-        }
+        //stage("SonarQube Analysis"){
+            //steps{
+                //withSonarQubeEnv('sonar-6') {
+                    //sh 'mvn sonar:sonar'
+                //}
+            //}
+        //}
         
         //stage("Slack Notifications"){
             //steps{
