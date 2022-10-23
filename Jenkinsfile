@@ -71,7 +71,8 @@ pipeline{
             steps{
                 withCredentials([string(credentialsId: 'jfrog-pass', variable: 'jfrog-var')]) {
                     //sh 'docker login -u admin -p Ch3t3n125#taf http://tafara-thinkpad-t580:8082/artifactory/docker-dev-local/'
-                    sh 'docker login -u admin -p ${jfrog-var} http://tafara-thinkpad-t580:8082/artifactory/docker-dev-local/'
+                    //sh 'docker login -u admin -p ${jfrog-var} http://tafara-thinkpad-t580:8082/artifactory/docker-dev-local/'
+                    sh 'echo ${jfrog-var}'
                 }
                 
                 sh 'docker push tafara-thinkpad-t580:8082/docker-dev-local/my-app:${DOCKER_TAG}'
