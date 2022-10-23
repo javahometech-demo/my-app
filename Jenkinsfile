@@ -69,8 +69,8 @@ pipeline{
         //}
         stage("Docker Push"){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+                withCredentials([string(credentialsId: 'jfrog-pass', variable: 'jfrog-var')]) {
+                    sh 'docker login -u tafaracheteni -p ${jfrog-var}'
                 }
                 
                 sh 'docker push tafara-thinkpad-t580:8082/docker-dev-local/my-app:${DOCKER_TAG}'
