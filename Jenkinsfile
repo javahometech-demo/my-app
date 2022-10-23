@@ -45,7 +45,7 @@ pipeline{
         //}
         stage("Docker Build"){
             steps{
-                sh 'docker build . -t tafara-thinkpad-t580:8082/artifactory/docker-dev-local/my-app:${DOCKER_TAG}'
+                sh 'docker build . -t tafara-thinkpad-t580:8082/docker-dev-local/my-app:${DOCKER_TAG}'
             }
         }
         //stage("Docker Build"){
