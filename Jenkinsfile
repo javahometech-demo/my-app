@@ -67,6 +67,15 @@ pipeline{
                 //sh 'docker push tafaracheteni/my-app:${DOCKER_TAG}'
             //}
         //}
+        stage("Docker Push"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh 'docker login -u tafaracheteni -p ${dockerHubPwd}'
+                }
+                
+                sh 'docker push tafara-thinkpad-t580:8082/docker-dev-local/my-app:${DOCKER_TAG}'
+            }
+        }
         //stage("Deploy to Tomcat Dev"){
         //    steps{
         //        tomcatDeploy('tomcat-dev','ec2-user','172.31.40.104')
