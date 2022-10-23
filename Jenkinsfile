@@ -71,8 +71,8 @@ pipeline{
             steps{
                 withCredentials([string(credentialsId: 'tafara', variable: 'cheteni')]) {
                     //sh 'docker login -u admin -p Ch3t3n125#taf http://tafara-thinkpad-t580:8082/artifactory/docker-dev-local/'
-                    //sh 'docker login -u admin -p ${cheteni} http://tafara-thinkpad-t580:8082/artifactory/docker-dev-local/'
-                    sh 'echo ${jfrog-pass}'
+                    sh 'docker login -u admin -p ${cheteni} http://tafara-thinkpad-t580:8082/artifactory/docker-dev-local/'
+                    //sh 'echo ${jfrog-pass}'
                 }
                 
                 sh 'docker push tafara-thinkpad-t580:8082/docker-dev-local/my-app:${DOCKER_TAG}'
